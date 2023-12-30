@@ -5,21 +5,26 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
+	// "sort"
 )
 
-/*
- * Complete the 'miniMaxSum' function below.
- *
- * The function accepts INTEGER_ARRAY arr as parameter.
- */
-
 func miniMaxSum(arr []int64) {
-	sort.Slice(arr, func(i, j int) bool {
-		return arr[i] < arr[j]
-	})
+	// Go has built-in function to sort an array / slice.
+	// But I assume I am not allowed to use that built-in function,
+	// So, I implemented the Merge Sort Alogrithm.
+
+	// Go's built-in sort function
+	// sort.Slice(arr, func(i, j int) bool {
+	//     return arr[i] < arr[j]
+	// })
+
+	// Merge Sort Alrgorithm
+	if len(arr) >= 2 {
+		arr = mergeSort(arr)
+	}
+
 	var (
 		minSum int64
 		maxSum int64
@@ -37,6 +42,34 @@ func miniMaxSum(arr []int64) {
 	}
 
 	fmt.Printf("%v %v", minSum, maxSum)
+}
+
+func mergeSort(arr []int64) []int64 {
+	if len(arr) < 2 {
+		return arr
+	}
+	return merge(mergeSort(arr[:len(arr)/2]), mergeSort(arr[len(arr)/2:]))
+}
+
+func merge(a []int64, b []int64) (sorted []int64) {
+	i := 0
+	j := 0
+	for i < len(a) && j < len(b) {
+		if a[i] < b[j] {
+			sorted = append(sorted, a[i])
+			i++
+		} else {
+			sorted = append(sorted, b[j])
+			j++
+		}
+	}
+	for ; i < len(a); i++ {
+		sorted = append(sorted, a[i])
+	}
+	for ; j < len(b); j++ {
+		sorted = append(sorted, b[j])
+	}
+	return
 }
 
 func main() {

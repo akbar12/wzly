@@ -9,13 +9,6 @@ import (
 	"time"
 )
 
-/*
- * Complete the 'timeConversion' function below.
- *
- * The function is expected to return a STRING.
- * The function accepts STRING s as parameter.
- */
-
 func timeConversion(s string) string {
 	convTime, _ := time.Parse("03:04:05PM", s)
 	return convTime.Format("15:04:05")
