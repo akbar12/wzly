@@ -1,0 +1,1 @@
+select AVG(salary) from employees where joined_date >= DATE_SUB(NOW(), INTERVAL 5 YEAR);
