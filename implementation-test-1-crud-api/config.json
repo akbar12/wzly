@@ -1,0 +1,11 @@
+{
+    "HTTP_SERVER": {
+        "PORT":":9999"
+    },
+    "JWT": {
+        "KEY": "1dd290932dffe21ae7070c1a7dfe1a80"
+    },
+    "DB": {
+        "CONN_STR": "root:cc8bf32e3065c8ec4b70aca2b9bfe77a@tcp(127.0.0.1:3306)/point_of_sales?multiStatements=true&parseTime=true&charset=utf8;"
+    }
+}
