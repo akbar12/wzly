@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -171,7 +170,7 @@ func (i *InvoiceController) InvoiceCreate(w http.ResponseWriter, r *http.Request
 
 	err = tx.Commit()
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
@@ -277,7 +276,7 @@ func (i *InvoiceController) InvoiceUpdate(w http.ResponseWriter, r *http.Request
 
 	err = tx.Commit()
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 

@@ -30,14 +30,14 @@ func InitInvoiceItemRepo(db *sql.DB) InvoiceItemRepoIface {
 func (i *InvoiceItemRepo) Insert(ctx context.Context, tx *sql.Tx, invoiceItems []model.InvoiceItemModel) (err error) {
 	query, values, err := util.SqlDialect.Insert(goqu.T("invoice_item")).Rows(invoiceItems).Prepared(true).ToSQL()
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
 	if tx == nil {
 		tx, err = i.db.BeginTx(ctx, nil)
 		if err != nil {
-			log.Println(err)
+			util.Error(err, nil)
 			return
 		}
 
@@ -52,7 +52,7 @@ func (i *InvoiceItemRepo) Insert(ctx context.Context, tx *sql.Tx, invoiceItems [
 
 	_, err = tx.ExecContext(ctx, query, values...)
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 	}
 	return
 }
@@ -106,13 +106,13 @@ func (i *InvoiceItemRepo) List(ctx context.Context, byInvoiceID int64) (list []m
 
 	query, params, err := dataset.Prepared(true).ToSQL()
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
 	rows, err := i.db.QueryContext(ctx, query, params...)
 	if err != nil && err != sql.ErrNoRows {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 	defer rows.Close()
@@ -129,14 +129,14 @@ func (i *InvoiceItemRepo) List(ctx context.Context, byInvoiceID int64) (list []m
 			&invc.UnitPrice,
 			&invc.Amount,
 		); err != nil {
-			log.Println(err)
+			util.Error(err, nil)
 			return
 		}
 		list = append(list, invc)
 	}
 
 	if err = rows.Err(); err != nil && err != sql.ErrNoRows {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 

@@ -90,7 +90,7 @@ func (i *CustomerRepo) ListCustomer(ctx context.Context, tx *sql.Tx, param Param
 			&c.CreatedBy,
 			&c.CreatedDate,
 		); err != nil {
-			log.Println(err)
+			util.Error(err, nil)
 			return
 		}
 		list = append(list, c)

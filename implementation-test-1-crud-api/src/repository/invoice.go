@@ -3,7 +3,6 @@ package repository
 import (
 	"context"
 	"database/sql"
-	"log"
 	"time"
 
 	"pos-api/src/model"
@@ -44,7 +43,7 @@ type ListInvoiceParam struct {
 func (i *InvoiceRepo) BeginTx(ctx context.Context) (*sql.Tx, error) {
 	tx, err := i.db.BeginTx(ctx, nil)
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 	}
 	return tx, err
 }
@@ -60,6 +59,9 @@ func (i *InvoiceRepo) ListInvoice(ctx context.Context, param *ListInvoiceParam) 
 			goqu.I("c.customer_name").As("customer_name"),
 			goqu.I("i.total_item").As("total_item"),
 			goqu.I("i.status").As("status"),
+			goqu.I("i.sub_total").As("sub_total"),
+			goqu.I("i.tax").As("tax"),
+			goqu.I("i.grand_total").As("grand_total"),
 		).
 		From(goqu.T("invoice").As("i")).
 		LeftJoin(goqu.T("customer").As("c"),
@@ -118,13 +120,13 @@ func (i *InvoiceRepo) ListInvoice(ctx context.Context, param *ListInvoiceParam) 
 
 	query, params, err := dataset.Prepared(true).ToSQL()
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
 	rows, err := i.db.QueryContext(ctx, query, params...)
 	if err != nil && err != sql.ErrNoRows {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 	defer rows.Close()
@@ -140,15 +142,18 @@ func (i *InvoiceRepo) ListInvoice(ctx context.Context, param *ListInvoiceParam) 
 			&invc.CustomerName,
 			&invc.TotalItems,
 			&invc.Status,
+			&invc.SubTotal,
+			&invc.Tax,
+			&invc.GrandTotal,
 		); err != nil {
-			log.Println(err)
+			util.Error(err, nil)
 			return
 		}
 		list = append(list, invc)
 	}
 
 	if err = rows.Err(); err != nil && err != sql.ErrNoRows {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
@@ -186,7 +191,7 @@ func (i *InvoiceRepo) DetailInvoice(ctx context.Context, invoiceID int) (invoice
 
 	query, params, err := dataset.Prepared(true).ToSQL()
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
@@ -206,7 +211,7 @@ func (i *InvoiceRepo) DetailInvoice(ctx context.Context, invoiceID int) (invoice
 			&invoice.Status,
 		)
 	if err != nil && err != sql.ErrNoRows {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 	return
@@ -215,14 +220,14 @@ func (i *InvoiceRepo) DetailInvoice(ctx context.Context, invoiceID int) (invoice
 func (i *InvoiceRepo) Insert(ctx context.Context, tx *sql.Tx, invoice *model.InvoiceModel) (err error) {
 	query, values, err := util.SqlDialect.Insert(goqu.T("invoice")).Rows(invoice).Prepared(true).ToSQL()
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
 	if tx == nil {
 		tx, err = i.db.BeginTx(ctx, nil)
 		if err != nil {
-			log.Println(err)
+			util.Error(err, nil)
 			return
 		}
 
@@ -237,13 +242,13 @@ func (i *InvoiceRepo) Insert(ctx context.Context, tx *sql.Tx, invoice *model.Inv
 
 	result, err := tx.ExecContext(ctx, query, values...)
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
 	id, err := result.LastInsertId()
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
@@ -252,7 +257,7 @@ func (i *InvoiceRepo) Insert(ctx context.Context, tx *sql.Tx, invoice *model.Inv
 
 	err = i.Update(ctx, tx, invoice)
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
@@ -263,7 +268,7 @@ func (i *InvoiceRepo) Update(ctx context.Context, tx *sql.Tx, invoice *model.Inv
 	if tx == nil {
 		tx, err = i.db.BeginTx(ctx, nil)
 		if err != nil {
-			log.Println(err)
+			util.Error(err, nil)
 			return
 		}
 
@@ -298,13 +303,13 @@ func (i *InvoiceRepo) Update(ctx context.Context, tx *sql.Tx, invoice *model.Inv
 		Prepared(true).ToSQL()
 
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
 	_, err = tx.ExecContext(ctx, query, values...)
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 

@@ -3,7 +3,6 @@ package repository
 import (
 	"context"
 	"database/sql"
-	"log"
 
 	"pos-api/src/model"
 	"pos-api/src/util"
@@ -71,13 +70,13 @@ func (i *ItemRepo) ListItem(ctx context.Context, param ParamListItem) (list []mo
 
 	query, params, err := dataset.Prepared(true).ToSQL()
 	if err != nil {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 
 	rows, err := i.db.QueryContext(ctx, query, params...)
 	if err != nil && err != sql.ErrNoRows {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 	defer rows.Close()
@@ -93,14 +92,14 @@ func (i *ItemRepo) ListItem(ctx context.Context, param ParamListItem) (list []mo
 			&item.CreatedBy,
 			&item.CreatedDate,
 		); err != nil {
-			log.Println(err)
+			util.Error(err, nil)
 			return
 		}
 		list = append(list, item)
 	}
 
 	if err = rows.Err(); err != nil && err != sql.ErrNoRows {
-		log.Println(err)
+		util.Error(err, nil)
 		return
 	}
 

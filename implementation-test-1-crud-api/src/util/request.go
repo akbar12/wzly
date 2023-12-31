@@ -3,7 +3,6 @@ package util
 import (
 	"encoding/json"
 	"errors"
-	"log"
 	"net/http"
 )
 
@@ -33,9 +32,7 @@ func (p *Pagination) ParseFromBody() (param *PaginParam) {
 }
 
 func DecodeJsonRequest(r *http.Request, dst interface{}) (err error) {
-	err = json.NewDecoder(r.Body).Decode(dst)
-	log.Println(err)
-	return
+	return json.NewDecoder(r.Body).Decode(dst)
 }
 
 func ResponseError401(w http.ResponseWriter, err error) {

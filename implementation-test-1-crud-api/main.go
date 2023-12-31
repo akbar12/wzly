@@ -4,7 +4,6 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -58,7 +57,7 @@ func httpServer(r *mux.Router) {
 	go func() {
 		fmt.Println("listening on port", port)
 		if err := srv.ListenAndServe(); err != nil {
-			log.Println(err)
+			util.Info(err, nil)
 		}
 	}()
 
@@ -79,6 +78,6 @@ func httpServer(r *mux.Router) {
 	// Optionally, you could run srv.Shutdown in a goroutine and block on
 	// <-ctx.Done() if your application should wait for other services
 	// to finalize based on context cancellation.
-	log.Println("shutting down")
+	util.Info("shutting down server", nil)
 	os.Exit(0)
 }

@@ -20,8 +20,8 @@ type InvoiceListRequest struct {
 }
 
 func (i *InvoiceListRequest) ToQueryRepo() *repository.ListInvoiceParam {
-	issueDate, _ := time.Parse(i.IssueDate, util.DateFormat)
-	dueDate, _ := time.Parse(i.DueDate, util.DateFormat)
+	issueDate, _ := time.Parse(util.DateFormat, i.IssueDate)
+	dueDate, _ := time.Parse(util.DateFormat, i.DueDate)
 	return &repository.ListInvoiceParam{
 		InvoiceID:    i.InvoiceID,
 		IssueDate:    issueDate,
