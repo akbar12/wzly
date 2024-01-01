@@ -1,19 +1,41 @@
 
-# Point of Sales 
+# API CRUD Point-of-Sales (POS) System 
 
-This system is APIs of simple Invoice Management System.
-
-To use / try these APIs, you could use a [Postman](https://www.postman.com/downloads/) Collection that has been attached along with this system.
+## Business Requirement
+You would able to create invoice, edit, get detail & get list of Invoices. Each of Invoice have a customer data and items that being purchased.
 
 You could also see a Demo Video to give you better understanding how to use these APIs.
 
-# System Installation
+## Database Migration
+The system could migrate SQL scripts which will be triggered [in the system startup](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/database.go#L34).
 
-## Software
+The new SQL script must be placed in the [migration folder](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/util/migrations).
+
+## Authentication
+The system use JWT token for Authentication. You could see it's implementation in the [http request's middleware](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/middleware.go).
+
+## Logging
+The system use prints log (error & info) for any catched error & optional info. It will be formatted as JSON. You could see it's implementation in the [logger](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/logger.go).
+
+## Unit Test
+The system equiped with some unit tests to prevent breaking changes. You could see it's implementaion in the common [util](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/util), [business process logics](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/model?ref_type=heads) and [controller](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/controller?ref_type=heads). Unit test's file have the `_test.go` prefixe.
+
+## Design Patter
+The system also implements some of the well known design pattern, such as Singleton and Facade. 
+
+### Singleton
+You could see Singleton implementation in the [database initialization](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/database.go?ref_type=heads#L22) in [main.go](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/main.go?ref_type=heads#L23). 
+
+### Facade
+The could see Facade implementation in the [logger](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/logger.go?ref_type=heads) util. The logger will simplify the utilization of logging library.
+
+## System Installation
+
+### System Requirement
 - Golang +1.16
 - MySQL 5.7.xx
 
-## Step by Step
+### Step by Step Installation
 - [Download & Install](https://go.dev/doc/install) Golang +1.16 
 - [Download & Install](https://dev.mysql.com/downloads/windows/installer/5.7.html) MySQL 5.7.xx
 - Create an empty database & import a database dump that has been attached along with this system. Please adjust the API's database configuration in the config.json based on your database config (host, port, username, password, dbname, etc)
@@ -21,5 +43,5 @@ You could also see a Demo Video to give you better understanding how to use thes
 - Run the API source code by running `go build && /pos-api.exe` (for windows) or `go build && ./pos-api` (for linux). You will see message `listening on port :9999` in terminal that indicates the API is running.
 - Test / Try the API by using a Postman Collection that has been attached along with this system. Dont forget to replace Postman Env Variable {{api-pos}} with `http://localhost/9999`
 
-## Notes
-You may see a lot of weakness / holes in this source code, because I done it mostly in Working days. I am also running out of time to create any unit tests. So don't hesitate to tell me for any suggestion / improvement. Thank you
+### Try it
+To use / try these APIs, you could use a [Postman](https://www.postman.com/downloads/) Collection that has been attached along with this system.
