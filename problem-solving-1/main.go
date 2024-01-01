@@ -20,7 +20,7 @@ func miniMaxSum(arr []int64) {
 	//     return arr[i] < arr[j]
 	// })
 
-	// Merge Sort Alrgorithm
+	// Custom Merge Sort Alrgorithm
 	if len(arr) >= 2 {
 		arr = mergeSort(arr)
 	}
