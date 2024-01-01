@@ -7,27 +7,27 @@ You would able to create invoice, edit, get detail & get list of Invoices. Each 
 You could also see a Demo Video to give you better understanding how to use these APIs.
 
 ## Database Migration
-The system could migrate SQL scripts which will be triggered [in the system startup](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/database.go#L34).
+The system could migrate SQL scripts which will be triggered [in the system startup](https://github.com/akbar12/wzly/blob/main/implementation-test-1-crud-api/src/util/database.go#L34).
 
-The new SQL script must be placed in the [migration folder](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/util/migrations).
+The new SQL script must be placed in the [migration folder](https://github.com/akbar12/wzly/tree/main/implementation-test-1-crud-api/src/util/migrations).
 
 ## Authentication
-The system use JWT token for Authentication. You could see it's implementation in the [http request's middleware](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/middleware.go).
+The system use JWT token for Authentication. You could see it's implementation in the [http request's middleware](https://github.com/akbar12/wzly/blob/main/implementation-test-1-crud-api/src/util/middleware.go).
 
 ## Logging
-The system prints log (error & info) for any catched error & optional info. It will be formatted as JSON. You could see it's implementation in the [logger](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/logger.go).
+The system prints log (error & info) for any catched error & optional info. It will be formatted as JSON. You could see it's implementation in the [logger](https://github.com/akbar12/wzly/blob/main/implementation-test-1-crud-api/src/util/logger.go).
 
 ## Unit Test
-The system equiped with some unit tests to prevent breaking changes. You could see it's implementaion in the common [util](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/util), [business process logics](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/model?ref_type=heads) and [controller](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/controller?ref_type=heads). Unit test's files have the `_test.go` prefixes.
+The system equiped with some unit tests to prevent breaking changes. Unit test's files have the `_test.go` prefixes. You could see it's implementaion in the common [util](https://github.com/akbar12/wzly/tree/main/implementation-test-1-crud-api/src/util), [business process logics](https://github.com/akbar12/wzly/tree/main/implementation-test-1-crud-api/src/model) and [controller](https://github.com/akbar12/wzly/tree/main/implementation-test-1-crud-api/src/controller). 
 
 ## Design Patter
 The system also implements some of the well known design pattern, such as Singleton and Facade. 
 
 ### Singleton
-You could see Singleton implementation in the [database initialization](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/database.go?ref_type=heads#L22) in [main.go](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/main.go?ref_type=heads#L23). 
+You could see Singleton implementation in the [database initialization](https://github.com/akbar12/wzly/blob/main/implementation-test-1-crud-api/src/util/database.go#L22) in [main.go](https://github.com/akbar12/wzly/blob/main/implementation-test-1-crud-api/main.go#L23). 
 
 ### Facade
-The could see Facade implementation in the [logger](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/logger.go?ref_type=heads) util. The logger will simplify the utilization of logging library.
+The could see Facade implementation in the [logger](https://github.com/akbar12/wzly/blob/main/implementation-test-1-crud-api/src/util/logger.go) util. The logger will simplify the utilization of logging library.
 
 ## System Installation
 
@@ -44,4 +44,4 @@ The could see Facade implementation in the [logger](https://gitlab.com/akbar.anu
 - Test / Try the API by using a Postman Collection that has been attached along with this system. Dont forget to replace Postman Env Variable {{api-pos}} with `http://localhost/9999`
 
 ### Try it
-To use / try these APIs, you could use a [Postman](https://www.postman.com/downloads/) Collection that has been attached along with this system.
+To use or try these APIs, you could use a [Postman](https://www.postman.com/downloads/) Collection that has been attached along with this system.
