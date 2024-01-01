@@ -4,7 +4,7 @@
 ## Business Requirement
 You would able to create invoice, edit, get detail & get list of Invoices. Each of Invoice have a customer data and items that being purchased.
 
-You could also see a Demo Video to give you better understanding how to use these APIs.
+You could also see a [Demo Video](https://github.com/akbar12/wzly/blob/main/implementation-test-1-crud-api/DEMO-video.webm) to give you better understanding how to use these APIs.
 
 ## Database Migration
 The system could migrate SQL scripts which will be triggered [in the system startup](https://github.com/akbar12/wzly/blob/main/implementation-test-1-crud-api/src/util/database.go#L34).
@@ -44,4 +44,4 @@ The could see Facade implementation in the [logger](https://github.com/akbar12/w
 - Test / Try the API by using a Postman Collection that has been attached along with this system. Dont forget to replace Postman Env Variable {{api-pos}} with `http://localhost/9999`
 
 ### Try it
-To use or try these APIs, you could use a [Postman](https://www.postman.com/downloads/) Collection that has been attached along with this system.
+To use or try these APIs, you could use a [Postman Collection](https://github.com/akbar12/wzly/blob/main/implementation-test-1-crud-api/point-of-sales.postman_collection.json) that has been attached along with this system.
