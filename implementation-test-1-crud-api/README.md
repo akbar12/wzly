@@ -15,10 +15,10 @@ The new SQL script must be placed in the [migration folder](https://gitlab.com/a
 The system use JWT token for Authentication. You could see it's implementation in the [http request's middleware](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/middleware.go).
 
 ## Logging
-The system use prints log (error & info) for any catched error & optional info. It will be formatted as JSON. You could see it's implementation in the [logger](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/logger.go).
+The system prints log (error & info) for any catched error & optional info. It will be formatted as JSON. You could see it's implementation in the [logger](https://gitlab.com/akbar.anugrah/wzly/-/blob/main/implementation-test-1-crud-api/src/util/logger.go).
 
 ## Unit Test
-The system equiped with some unit tests to prevent breaking changes. You could see it's implementaion in the common [util](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/util), [business process logics](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/model?ref_type=heads) and [controller](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/controller?ref_type=heads). Unit test's file have the `_test.go` prefixe.
+The system equiped with some unit tests to prevent breaking changes. You could see it's implementaion in the common [util](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/util), [business process logics](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/model?ref_type=heads) and [controller](https://gitlab.com/akbar.anugrah/wzly/-/tree/main/implementation-test-1-crud-api/src/controller?ref_type=heads). Unit test's files have the `_test.go` prefixes.
 
 ## Design Patter
 The system also implements some of the well known design pattern, such as Singleton and Facade. 
